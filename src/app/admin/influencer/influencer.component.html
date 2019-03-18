@@ -1,0 +1,129 @@
+<p class="title">Influencers</p>
+<div class="wrapper">
+  <div class="table-header">
+    <div class="item-count">
+      <span>{{totalItem}} item(s) found</span>
+    </div>
+    <div class="age-search">
+      Age
+      <input [(ngModel)]="params.ageFrom" (ngModelChange)="updateSearch()" placeholder="from" class="form-control" type="number">
+      -
+      <input [(ngModel)]="params.ageTo" (ngModelChange)="updateSearch()" placeholder="to" class="form-control" type="text">
+    </div>
+    <div class="input-item">
+      <input [(ngModel)]="params.search" (ngModelChange)="updateSearch()" placeholder="Search" class="form-control" type="text">
+      <div class="input-item-append">
+        <img style="width: 15px;"src="/assets/images/search.svg">
+      </div>
+    </div>
+  </div>
+
+  <div class="table-content">
+    <table class="subscriber-table">
+      <thead>
+        <tr>
+          <th style="width: 12%">
+            <div class="text-item">
+              <span class="clickable">Social ID</span>
+            </div>
+          </th>
+          <th style="width: 7%">
+            <div class="text-item">
+              <span>So.Type</span>
+            </div>
+          </th>
+          <th style="width: 10%">
+            <div class="text-item">
+              <span class="clickable">Name</span>
+            </div>
+          </th>
+          <th style="width: 8%">
+            <div class="text-item">
+              <span class="clickable">DOB</span>
+            </div>
+          </th>
+          <th style="width: 8%">
+            <div class="text-item">
+              <span class="clickable">Phone</span>
+            </div>
+          </th>
+          <th style="width: 9%">
+            <div class="text-item">
+              <span class="clickable">CivilId</span>
+            </div>
+          </th>
+          <th style="width: 20%">
+            <div class="text-item">
+              <span class="clickable">Address</span>
+            </div>
+          </th>
+          <th style="width: 10%">
+            <div class="text-item">
+              <span class="clickable">Email</span>
+            </div>
+          </th>
+          <th style="width: 8%">
+            <div class="text-item">
+              <span>Topics</span>
+            </div>
+          </th>
+          <th style="width: 8%">
+            <div class="text-item">
+              <span>Occupations</span>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <div class="container-div">
+          <ng-container *ngIf="!!items && items.length === 0">
+            <tr>
+              <td colspan="8" style="text-align: center">
+                <span>No Results Found</span>
+              </td>
+            </tr>
+          </ng-container>
+          <ng-container *ngIf="items && items.length > 0">
+            <tr *ngFor="let item of items; let idx = index">
+              <td style="width: 12%">
+                <span>{{item.socialId}}</span>
+              </td>
+              <td style="width: 7%">
+                <span>{{item.socialType | titlecase}}</span>
+              </td>
+              <td style="width: 10%">
+                <span>{{item.name}}</span>
+              </td>
+              <td style="width: 8%">
+                <span>{{ item.dob | date:'yyyy/MM/dd'}}</span>
+              </td>
+              <td style="width: 8%">
+                <span>{{ item.phone }}</span>
+              </td>
+              <td style="width: 9%">
+                <span>{{ item.civilId }}</span>
+              </td>
+              <td style="width: 20%">
+                <span>{{item.address}}</span>
+              </td>
+              <td style="width: 10%">
+                <span >{{item.email}}</span>
+              </td>
+              <td style="width: 8%">
+                <span>{{getNameJointString(item.topics)}}</span>
+              </td>
+              <td style="width: 8%">
+                <span>{{getNameJointString(item.occupations)}}</span>
+              </td>
+            </tr>
+          </ng-container>
+          <tr *ngIf="!!items && items.length < totalItem" (click)="loadMore()">
+            <td class="load-more clickable" colspan="8" style="text-align: center">
+              <span>Load more</span>
+            </td>
+          </tr>
+        </div>
+      </tbody>
+    </table>
+  </div>
+</div>
